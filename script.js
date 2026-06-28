@@ -70,3 +70,14 @@ let score = 0;
 let selectedOption = "";
 
 console.log(quizData);
+// ==========================
+// Selecting HTML Elements
+// ==========================
+
+const questionEl = document.getElementById("question");
+
+const optionBtns = document.querySelectorAll(".option-btn");
+
+const nextBtn = document.getElementById("next-btn");
+
+const questionNumber = document.getElementById("question-number");
