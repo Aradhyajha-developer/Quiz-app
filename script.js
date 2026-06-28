@@ -158,3 +158,72 @@ nextBtn.addEventListener("click", () => {
     }
 
 });
+// ==========================
+// Result Screen
+// ==========================
+
+function showResult() {
+
+    let grade = "";
+    let emoji = "";
+    let message = "";
+
+    if (score === 5) {
+
+        grade = "Excellent";
+        emoji = "🏆";
+        message = "Outstanding! You answered every question correctly.";
+
+    }
+
+    else if (score === 4) {
+
+        grade = "Very Good";
+        emoji = "🌟";
+        message = "Great job! You have a strong understanding.";
+
+    }
+
+    else if (score === 3) {
+
+        grade = "Good";
+        emoji = "😊";
+        message = "Nice work! Keep practicing to improve.";
+
+    }
+
+    else if (score === 2) {
+
+        grade = "Fair";
+        emoji = "👍";
+        message = "You are learning well. Practice a little more.";
+
+    }
+
+    else if (score === 1) {
+
+        grade = "Improve";
+        emoji = "📚";
+        message = "Don't worry! Revise the basics and try again.";
+
+    }
+
+    else {
+
+        grade = "Poor";
+        emoji = "❌";
+        message = "Keep learning. Practice makes perfect.";
+
+    }
+
+    document.getElementById("quiz").innerHTML = `
+
+        <div class="result">
+
+            <h2>${emoji} Quiz Completed!</h2>
+
+            <h3>Performance Grade</h3>
+
+            <p>${grade}</p>
+
+            <h4>You Answered ${score} Out of ${quiz
