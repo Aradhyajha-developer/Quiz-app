@@ -110,3 +110,26 @@ const nextBtn = document.getElementById("next-btn");
 
 const questionNumber = document.getElementById("question-number");
 loadQuestion();
+// ==========================
+// Option Click
+// ==========================
+
+optionBtns.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+        optionBtns.forEach(option => {
+
+            option.classList.remove("selected");
+
+        });
+
+        btn.classList.add("selected");
+
+        selectedOption = btn.textContent;
+
+        nextBtn.disabled = false;
+
+    });
+
+});
