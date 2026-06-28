@@ -133,3 +133,28 @@ optionBtns.forEach(btn => {
     });
 
 });
+// ==========================
+// Next Button
+// ==========================
+
+nextBtn.addEventListener("click", () => {
+
+    if (selectedOption === quizData[currentQuestion].answer) {
+
+        score++;
+
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < quizData.length) {
+
+        loadQuestion();
+
+    } else {
+
+        showResult();
+
+    }
+
+});
