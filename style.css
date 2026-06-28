@@ -336,17 +336,11 @@ font-size:16px;
 
 }
 .correct{
-
     background:#00c853 !important;
-
-    color:white !important;
-
+    color:black !important;
 }
 
 .wrong{
-
     background:#e53935 !important;
-
-    color:white !important;
-
+    color:black !important;
 }

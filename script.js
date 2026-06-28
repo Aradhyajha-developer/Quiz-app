@@ -3,63 +3,66 @@
 // ==========================
 
 const quizData = [
-
-    {
-        question: "What does HTML stand for?",
-        options: [
-            "Hyperlinks and Text Markup Language",
-            "Hyper Text Markup Language",
-            "Home Tool Markup Language",
-            "Hyper Tool Multi Language"
-        ],
-        answer: "Hyper Text Markup Language"
-    },
-
-    {
-        question: "What year was JavaScript created?",
-        options: [
-            "1992",
-            "1995",
-            "2000",
-            "2005"
-        ],
-        answer: "1995"
-    },
-
-    {
-        question: "Which keyword is used to create a constant variable?",
-        options: [
-            "let",
-            "var",
-            "const",
-            "define"
-        ],
-        answer: "const"
-    },
-
-    {
-        question: "Which method selects an element by ID?",
-        options: [
-            "querySelector()",
-            "getById()",
-            "getElementById()",
-            "getElementsByClassName()"
-        ],
-        answer: "getElementById()"
-    },
-
-    {
-        question: "Which one is a JavaScript data type?",
-        options: [
-            "real",
-            "decimal",
-            "number",
-            "float"
-        ],
-        answer: "number"
-    }
-
+  {
+    question: "What does HTML stand for?",
+    options: [
+      "Hyperlinks and Text Markup Language",
+      "Hyper Text Markup Language",
+      "Home Tool Markup Language",
+      "Hyper Tool Multi Language"
+    ],
+    answer: "Hyper Text Markup Language"
+  },
+  {
+    question: "What year was JavaScript created?",
+    options: [
+      "1992",
+      "1995",
+      "2000",
+      "2005"
+    ],
+    answer: "1995"
+  },
+  {
+    question: "Which keyword is used to create a constant variable?",
+    options: [
+      "let",
+      "var",
+      "const",
+      "define"
+    ],
+    answer: "const"
+  },
+  {
+    question: "Which method selects an element by ID?",
+    options: [
+      "querySelector()",
+      "getById()",
+      "getElementById()",
+      "getElementsByClassName()"
+    ],
+    answer: "getElementById()"
+  },
+  {
+    question: "Which one is a JavaScript data type?",
+    options: [
+      "real",
+      "decimal",
+      "number",
+      "float"
+    ],
+    answer: "number"
+  }
 ];
+
+// ==========================
+// Selecting HTML Elements
+// ==========================
+
+const questionEl = document.getElementById("question");
+const optionBtns = document.querySelectorAll(".option-btn");
+const nextBtn = document.getElementById("next-btn");
+const questionNumber = document.getElementById("question-number");
 
 // ==========================
 // Variables
@@ -69,161 +72,196 @@ let currentQuestion = 0;
 let score = 0;
 let selectedOption = "";
 
-console.log(quizData);
 // ==========================
 // Load Question
 // ==========================
 
 function loadQuestion() {
 
-    const current = quizData[currentQuestion];
+  const current = quizData[currentQuestion];
 
-    questionNumber.textContent =
-        `Question ${currentQuestion + 1} of ${quizData.length}`;
+  questionNumber.textContent =
+    `Question ${currentQuestion + 1} of ${quizData.length}`;
 
-    questionEl.textContent = current.question;
+  questionEl.textContent = current.question;
 
-    optionBtns.forEach((btn, index) => {
+  optionBtns.forEach((btn, index) => {
 
-        btn.textContent = current.options[index];
+    btn.textContent = current.options[index];
 
-        btn.classList.remove("selected");
+    btn.classList.remove("selected");
+    btn.classList.remove("correct");
+    btn.classList.remove("wrong");
 
-        btn.disabled = false;
+    btn.disabled = false;
 
-    });
+  });
 
-    selectedOption = "";
+  selectedOption = "";
 
-    nextBtn.disabled = true;
+  nextBtn.disabled = true;
 
 }
-// ==========================
-// Selecting HTML Elements
-// ==========================
 
-const questionEl = document.getElementById("question");
-
-const optionBtns = document.querySelectorAll(".option-btn");
-
-const nextBtn = document.getElementById("next-btn");
-
-const questionNumber = document.getElementById("question-number");
-loadQuestion();
 // ==========================
 // Option Click
 // ==========================
 
 optionBtns.forEach(btn => {
 
-    btn.addEventListener("click", () => {
+  btn.addEventListener("click", () => {
 
-        optionBtns.forEach(option => {
+    optionBtns.forEach(option => {
 
-            option.classList.remove("selected");
-
-        });
-
-        btn.classList.add("selected");
-
-        selectedOption = btn.textContent;
-
-        nextBtn.disabled = false;
+      option.classList.remove("selected");
 
     });
 
+    btn.classList.add("selected");
+
+    selectedOption = btn.textContent;
+
+    nextBtn.disabled = false;
+
+  });
+
 });
+
 // ==========================
 // Next Button
 // ==========================
 
 nextBtn.addEventListener("click", () => {
 
-    if (selectedOption === quizData[currentQuestion].answer) {
+  const correctAnswer = quizData[currentQuestion].answer;
 
-        score++;
+  optionBtns.forEach(btn => {
+
+    btn.disabled = true;
+
+    if (btn.textContent === correctAnswer) {
+
+      btn.classList.add("correct");
 
     }
+
+    if (
+      btn.textContent === selectedOption &&
+      selectedOption !== correctAnswer
+    ) {
+
+      btn.classList.add("wrong");
+
+    }
+
+  });
+
+  if (selectedOption === correctAnswer) {
+
+    score++;
+
+  }
+
+  nextBtn.disabled = true;
+
+  setTimeout(() => {
 
     currentQuestion++;
 
     if (currentQuestion < quizData.length) {
 
-        loadQuestion();
+      loadQuestion();
 
     } else {
 
-        showResult();
+      showResult();
 
     }
 
+  }, 1000);
+
 });
+
 // ==========================
 // Result Screen
 // ==========================
 
 function showResult() {
 
-    let grade = "";
-    let emoji = "";
-    let message = "";
+  let grade = "";
+  let emoji = "";
+  let message = "";
 
-    if (score === 5) {
+  if (score === 5) {
 
-        grade = "Excellent";
-        emoji = "🏆";
-        message = "Outstanding! You answered every question correctly.";
+    grade = "Excellent";
+    emoji = "🏆";
+    message = "Outstanding! You answered every question correctly.";
 
-    }
+  } else if (score === 4) {
 
-    else if (score === 4) {
+    grade = "Very Good";
+    emoji = "🌟";
+    message = "Great job! You have a strong understanding.";
 
-        grade = "Very Good";
-        emoji = "🌟";
-        message = "Great job! You have a strong understanding.";
+  } else if (score === 3) {
 
-    }
+    grade = "Good";
+    emoji = "😊";
+    message = "Nice work! Keep practicing to improve.";
 
-    else if (score === 3) {
+  } else if (score === 2) {
 
-        grade = "Good";
-        emoji = "😊";
-        message = "Nice work! Keep practicing to improve.";
+    grade = "Fair";
+    emoji = "👍";
+    message = "You are learning well. Practice a little more.";
 
-    }
+  } else if (score === 1) {
 
-    else if (score === 2) {
+    grade = "Improve";
+    emoji = "📚";
+    message = "Don't worry! Revise the basics and try again.";
 
-        grade = "Fair";
-        emoji = "👍";
-        message = "You are learning well. Practice a little more.";
+  } else {
 
-    }
+    grade = "Poor";
+    emoji = "❌";
+    message = "Keep learning. Practice makes perfect.";
 
-    else if (score === 1) {
+  }
 
-        grade = "Improve";
-        emoji = "📚";
-        message = "Don't worry! Revise the basics and try again.";
+  document.getElementById("quiz").innerHTML = `
 
-    }
+    <div class="result">
 
-    else {
+      <h2>${emoji} Quiz Completed!</h2>
 
-        grade = "Poor";
-        emoji = "❌";
-        message = "Keep learning. Practice makes perfect.";
+      <h3>Performance Grade</h3>
 
-    }
+      <p>${grade}</p>
 
-    document.getElementById("quiz").innerHTML = `
+      <h4>You Answered ${score} Out of ${quizData.length} Correctly</h4>
 
-        <div class="result">
+      <br>
 
-            <h2>${emoji} Quiz Completed!</h2>
+      <p style="font-size:18px;">
+        ${message}
+      </p>
 
-            <h3>Performance Grade</h3>
+      <br>
 
-            <p>${grade}</p>
+      <button onclick="location.reload()">
+        🔄 Play Again
+      </button>
 
-            <h4>You Answered ${score} Out of ${quiz
+    </div>
+
+  `;
+
+}
+
+// ==========================
+// Start Quiz
+// ==========================
+
+loadQuestion();
