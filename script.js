@@ -71,6 +71,34 @@ let selectedOption = "";
 
 console.log(quizData);
 // ==========================
+// Load Question
+// ==========================
+
+function loadQuestion() {
+
+    const current = quizData[currentQuestion];
+
+    questionNumber.textContent =
+        `Question ${currentQuestion + 1} of ${quizData.length}`;
+
+    questionEl.textContent = current.question;
+
+    optionBtns.forEach((btn, index) => {
+
+        btn.textContent = current.options[index];
+
+        btn.classList.remove("selected");
+
+        btn.disabled = false;
+
+    });
+
+    selectedOption = "";
+
+    nextBtn.disabled = true;
+
+}
+// ==========================
 // Selecting HTML Elements
 // ==========================
 
@@ -81,3 +109,4 @@ const optionBtns = document.querySelectorAll(".option-btn");
 const nextBtn = document.getElementById("next-btn");
 
 const questionNumber = document.getElementById("question-number");
+loadQuestion();
