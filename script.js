@@ -182,9 +182,7 @@ nextBtn.addEventListener("click", () => {
 
 });
 
-// ==========================
-// Result Screen
-// ==========================
+
 
 function showResult() {
 
